@@ -41,7 +41,7 @@ export function MainPage() {
             setMapVisible(true);
 
             for(let i = 0; i < eventos.length; i++){
-                setLocations(locations => [...locations, {lat: eventos[i].lat, long: eventos[i].long}])
+                setLocations(locations => [...locations, {nombre: eventos[i].nombre,lat: eventos[i].lat, long: eventos[i].long}])
             }
         }
 
@@ -52,26 +52,24 @@ export function MainPage() {
         <>
             <NavBar/>
             <Row>
-                <Button onClick={showLogsClick}>
-                    {!logsVisible ? ("Show Logs") : ("Hide Logs")}</Button>
-                <p>
+                <Button onClick={showLogsClick}>{!logsVisible ? ("Show Logs") : ("Hide Logs")}</Button>
                     {logsVisible && logs ? (
                         <>
                             <h1>Logs</h1>
                             <Container>
                                 <ListGroup>
                                     {logs.map((log, key) => (
-                                        <>
-                                            <ListGroup.Item id={log._id}
-                                                            style={{whiteSpace: "nowrap", overflow: "auto"}}
-                                                            key={log._id}>{log.timeStamp + ": " + log.usuario + ": " + log.caducidad + ": " + log.token}</ListGroup.Item>
-                                        </>
+                                        <ListGroup.Item
+                                            key={log.timeStamp}
+                                            style={{ whiteSpace: "nowrap", overflow: "auto" }}
+                                        >
+                                            {log.timeStamp + ": " + log.message}
+                                        </ListGroup.Item>
                                     ))}
                                 </ListGroup>
                             </Container>
                         </>
                     ) : (<></>)}
-                </p>
             </Row>
             <Row xs="auto" className={"mb-5"}>
                 <Form className={"d-flex"} onSubmit={handleFiltro}>
@@ -119,7 +117,7 @@ export function MainPage() {
                 </Container>
             </Row>
 
-            <Row className={"d-flex align-items-center"}>
+
                 {mapVisible?
                     <>
                         <GMap locations={[locations]}/>
@@ -128,7 +126,7 @@ export function MainPage() {
                     <></>
                 }
 
-            </Row>
+
         </>
     );
 }

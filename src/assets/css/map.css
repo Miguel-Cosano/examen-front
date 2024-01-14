@@ -1,6 +1,10 @@
 .map-container {
-    max-width: 450px;
-    height: 350px;
+    width: 100vw;
+    max-width: 800px; /* Adjust the max-width as needed */
+    height: 500px; /* Set the fixed height for a square aspect ratio */
+    margin: auto; /* Center the map horizontally */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Shadow effect with transparency */
+    margin-bottom: 50px;
 }
 
 .marker-label {
@@ -9,8 +13,6 @@
     padding: 4px 8px;
     border-radius: 4px;
     font-weight: bold;
-    position: absolute;
-    top: 10px; /* Ajusta esta posición según sea necesario */
-    left: -30px; /* Ajusta esta posición según sea necesario */
-    z-index: 1000; /* Asegura que esté encima del marcador */
-  }
+    position: relative;
+    top: -30px;
+}

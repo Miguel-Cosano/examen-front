@@ -45,7 +45,7 @@ function Map({ locations }) {
                 <MarkerF
                     position={{ lat: Number(location.lat) + index*0.0001, lng: Number(location.long) + index*0.0001 }}
                     label={{
-                        text: location.title,
+                        text: location.nombre,
                         className: "marker-label"
                     }}
                 />
