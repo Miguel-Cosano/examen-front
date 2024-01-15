@@ -18,12 +18,10 @@ export default function GoogleOAuth() {
     });
 
     const logOut = async () => {
-        await eventoService.logOut()
-        googleLogout();
         setProfile([]);
         setUser([]);
-        localStorage.clear();
-        routerService.moveToMainPage();
+        await eventoService.logOut()
+        
     };
 
     useEffect(() => {

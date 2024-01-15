@@ -21,11 +21,11 @@ function Map({ locations }) {
     const center = useMemo(() => {
         // Calcula el centro en base a las ubicaciones
         if (locations.length === 0) {
-            return { lat: 0, lng: 0 }; // Valor por defecto si no hay ubicaciones
+            return {lat: 0, lng: 0}; // Valor por defecto si no hay ubicaciones
         }
         console.log(locations)
         // Calcula el centro promedio de todas las ubicaciones
-        if(locations === 1){
+        if (locations === 1) {
             locations = locations[0]
         }
 
@@ -43,7 +43,8 @@ function Map({ locations }) {
         <GoogleMap zoom={10} center={center} mapContainerClassName="map-container">
             {locations.map((location, index) => (
                 <MarkerF
-                    position={{ lat: Number(location.lat) + index*0.0001, lng: Number(location.long) + index*0.0001 }}
+                    key={index} // Add a unique key for each marker
+                    position={{lat: Number(location.lat), lng: Number(location.long)}}
                     label={{
                         text: location.nombre,
                         className: "marker-label"

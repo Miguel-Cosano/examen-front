@@ -16,11 +16,15 @@ export function MainPage() {
     const [mapVisible, setMapVisible] = useState(false);
     const [locations, setLocations] = useState([]);
     useEffect(() => {
-        eventoService.getEventos(setEventos)
+        if(eventos.length === 0){
+            eventoService.getEventos(setEventos)
+        }
     },[])
 
     useEffect(() => {
-        eventoService.getLogs(setLogs)
+        if(logs.length === 0){
+            eventoService.getLogs(setLogs)
+        }
     },[])
 
 
@@ -35,17 +39,25 @@ export function MainPage() {
         const cp = event.target[0].value;
         const nombre = event.target[1].value;
         const organizador = event.target[2].value;
-        await eventoService.filterEventos(nombre, organizador, cp ,setEventos);
 
-        if(cp != ""){
+        let result = await eventoService.filterEventos(nombre, organizador, cp);
+        console.log("RESULTADO FILTRO:" + result);
+
+        setEventos(result);
+
+        if (cp !== "") {
             setMapVisible(true);
 
-            for(let i = 0; i < eventos.length; i++){
-                setLocations(locations => [...locations, {nombre: eventos[i].nombre,lat: eventos[i].lat, long: eventos[i].long}])
-            }
-        }
+            const newLocations = result.map(evento => ({
+                nombre: evento.nombre,
+                lat: evento.lat,
+                long: evento.long
+            }));
 
+            setLocations(newLocations);
+        }
     }
+
 
 
     return (
@@ -118,7 +130,7 @@ export function MainPage() {
             </Row>
 
 
-                {mapVisible?
+                {mapVisible && locations.length>0?
                     <>
                         <GMap locations={[locations]}/>
                     </>

@@ -16,12 +16,13 @@ import routerService from "./routerService.js";
 
 setDefaults({
     key: "AIzaSyAC19b_P5mghLXPfbcmk-nn4luaONE8T0Q", // Your API key here.
-    language: "en", // Default language for responses.
+    language: "es", // Default language for responses.
     region: "es", // Default region for responses.
 });
 
 const getCoordenadas = async (direccion,setCoordeandas) => {
     let response = await fromAddress(direccion).catch(console.error);
+    console.log("Coordenadas: " + response.results[0].geometry.location)
     return response.results[0].geometry.location;
 }
 const getEventos = async (setEventos) => {
@@ -30,11 +31,16 @@ const getEventos = async (setEventos) => {
             'Access-Control-Allow-Origin': '*'
         }
 
-    });
+    }).catch(
+        error => {
+            if(error.status === 401){
+                alert("Token de sesion no valido");
+                logOut();
+            } });
     setEventos(res.data.eventos);
 }
 
-const filterEventos = async (nombre, organizador, cp , setEventos) => {
+const filterEventos = async (nombre, organizador, cp) => {
     let coordenadas = {};
     if(cp !== undefined && cp !== null && cp !== ""){
         coordenadas = await getCoordenadas(cp);
@@ -51,8 +57,13 @@ const filterEventos = async (nombre, organizador, cp , setEventos) => {
     ,{
         headers: {
             'Access-Control-Allow-Origin': '*'
-        }});
-    setEventos(res.data.eventos);
+        }}).catch(
+        error => {
+            if(error.status === 401){
+                alert("Token de sesion no valido");
+                logOut();
+            } });
+    return res.data.eventos;
 
 }
 
@@ -91,7 +102,12 @@ const addEvento = async (evento) => {
                     'Access-Control-Allow-Origin': '*',
                     "authorization": localStorage.getItem("token")
                 }
-            });
+            }).catch(
+            error => {
+                if(error.status === 401){
+                    alert("Token de sesion no valido");
+                    logOut();
+                } });;
         return res;
     }catch (error){
         console.log(error);
@@ -105,7 +121,12 @@ const updateEvento = async (evento) => {
                 'Access-Control-Allow-Origin': '*',
                 "authorization": localStorage.getItem("token")
             }
-        });
+        }).catch(
+            error => {
+                if(error.status === 401){
+                    alert("Token de sesion no valido");
+                    logOut();
+                } });;
         return res;
     }catch (error){
         console.log(error);
@@ -119,7 +140,12 @@ const deleteEvento = async (idEvento) => {
                 'Access-Control-Allow-Origin': '*',
                 "authorization": localStorage.getItem("token")
             }
-        });
+        }).catch(
+            error => {
+                if(error.status === 401){
+                    alert("Token de sesion no valido");
+                    logOut();
+                } });;
         if(res.status === 200){
             alert("Evento eliminado correctamente")
             routerService.moveToMainPage();
@@ -139,7 +165,12 @@ const getUserInfo = async (setUserInfo) => {
                 'Access-Control-Allow-Origin': '*',
                 "authorization": localStorage.getItem("token")
             }
-        });
+        }).catch(
+            error => {
+                if(error.status === 401){
+                    alert("Token de sesion no valido");
+                    logOut();
+                } });;
         setUserInfo(res.data.user);
     }catch (error){
         console.log(error);
@@ -154,6 +185,8 @@ const logOut = async () => {
                 "authorization": localStorage.getItem("token")
             }
         });
+        localStorage.clear();
+        routerService.moveToMainPage();
 
 }
 
