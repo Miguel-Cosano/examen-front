@@ -71,26 +71,26 @@ export function MainPage() {
                         </>
                     ) : (<></>)}
             </Row>
-            <Row xs="auto" className={"mb-5"}>
+            <Row xs="auto" className={"mt-5 mb-5"}>
                 <Form className={"d-flex"} onSubmit={handleFiltro}>
                     <Col xs="auto" className={"d-flex align-content-center"}>
                         <p className={"m-0 ms-3 me-3 align-self-center"}>Filtro</p>
                     </Col>
-                    <Col xs="auto">
+                    <Col xs="auto" className={"me-2"}>
                         <Form.Control
                             type="text"
                             placeholder="Código postal"
                             className=" mr-sm-2"
                         />
                     </Col>
-                    <Col xs="auto">
+                    <Col xs="auto" className={"me-2"}>
                         <Form.Control
                             type="text"
                             placeholder="Nombre"
                             className=" mr-sm-2"
                         />
                     </Col>
-                    <Col xs="auto">
+                    <Col xs="auto" className={"me-2"}>
                         <Form.Control
                             type="text"
                             placeholder="Organizador"

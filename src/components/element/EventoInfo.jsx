@@ -1,7 +1,8 @@
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import NavBar from "../NavBar.jsx";
 import Button from "react-bootstrap/Button";
-import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import { Row, Col, Container } from "react-bootstrap";
 import eventoService from "../../service/eventoService.js";
 import routerService from "../../service/routerService.js";
 import imageNotFound from "../../assets/image/no-image.png";
@@ -11,40 +12,84 @@ export function EventoInfo() {
 
     const [evento, setEvento] = useState({});
 
-    let imagenEvento = new Image();
-    imagenEvento.src = evento.imagen;
-
     useEffect(() => {
-        const fetchData = async() => {
-            await eventoService.getEventoById(idEvento,setEvento);
-        }
+        const fetchData = async () => {
+            await eventoService.getEventoById(idEvento, setEvento);
+        };
+        fetchData();
+    }, [idEvento]);
 
-            fetchData();
-
-
-    }, [])
     return (
         <>
-
-            <NavBar></NavBar>
-            <h1>Evento</h1>
-            <img className="card-img-top mb-5 mb-md-0"
-                 src={evento.imagen !== undefined ? evento.imagen : imageNotFound} alt="..."
-                 style={imagenEvento.height > imagenEvento.width ? {
-                     height: '500px',
-                     width: 'auto'
-                 } : {height: 'auto', width: '500px'}}/>
-
-            <p>Nombre: {evento.nombre}</p>
-            <p>Lugar: {evento.lugar}</p>
-            <p>Fecha: {evento.timeStamp}</p>
-            <p>Organizador: {evento.organizador}</p>
-            <p>Coordenadas: latitud:{evento.lat} longitud: {evento.long}</p>
-
-            <Button variant="primary" className={"me-3"}
-                    onClick={() => eventoService.deleteEvento(idEvento)}>Eliminar</Button>
-            <Button variant="secondary" onClick={() => routerService.moveToUpdateEvento(evento._id)}>Modificar</Button>
-
+            <NavBar />
+            <Container>
+                <Row className="mt-4">
+                    <Col>
+                        <h1>Evento</h1>
+                    </Col>
+                </Row>
+                <Row className="mb-4">
+                    <Col md={6}>
+                        <img
+                            className="img-fluid mb-4"
+                            src={evento.imagen || imageNotFound}
+                            alt="Evento"
+                            onLoad={(e) => {
+                                const { naturalHeight, naturalWidth } = e.target;
+                                if (naturalHeight > naturalWidth) {
+                                    e.target.style.height = "auto";
+                                    e.target.style.width = "100%";
+                                } else {
+                                    e.target.style.height = "400px";
+                                    e.target.style.width = "auto";
+                                }
+                            }}
+                        />
+                    </Col>
+                    <Col md={6} className="mt-5">
+                        <div>
+                            <p className="fw-bold">Nombre: </p>
+                            <p>{evento.nombre}</p>
+                        </div>
+                        <div>
+                            <p className="fw-bold">Lugar: </p>
+                            <p>{evento.lugar}</p>
+                        </div>
+                        <div>
+                            <p className="fw-bold">Fecha: </p>
+                            <p>{evento.timeStamp}</p>
+                        </div>
+                        <div>
+                            <p className="fw-bold">Organizador: </p>
+                            <p>{evento.organizador}</p>
+                        </div>
+                        <div>
+                            <p><b>Coordenadas:</b></p>
+                            <p className="d-flex justify-content-center mt-3">
+                                 <b>latitud:</b>{evento.lat}
+                            </p>
+                            <p>
+                                <b>longitud:</b> {evento.long}
+                            </p>
+                        </div>
+                        <div className="d-flex justify-content-center mt-3">
+                            <Button
+                                variant="primary"
+                                className="me-3"
+                                onClick={() => eventoService.deleteEvento(idEvento)}
+                            >
+                                Eliminar
+                            </Button>
+                            <Button
+                                variant="secondary"
+                                onClick={() => routerService.moveToUpdateEvento(evento._id)}
+                            >
+                                Modificar
+                            </Button>
+                        </div>
+                    </Col>
+                </Row>
+            </Container>
         </>
-    )
+    );
 }
