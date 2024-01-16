@@ -7,6 +7,7 @@ import routerService from "../../service/routerService.js";
 
 export function Evento({evento}) {
     const fecha = new Date(evento.timeStamp);
+    console.log(fecha)
 
     return (
         <>
@@ -41,7 +42,7 @@ export function Evento({evento}) {
                             Lugar: {evento.lugar}
                         </Card.Text>
                         <Card.Text>
-                            Fecha: {fecha.getDay() + "/" + fecha.getMonth() + "/" + fecha.getFullYear()}
+                            Fecha: {fecha.getDate() + "/" +fecha.getMonth() + 1 + "/" + fecha.getFullYear()}
                         </Card.Text>
                         <Button className="mb-1" variant="primary" onClick={() => routerService.moveToInfoEvento(evento._id)}>Ver evento</Button>
                     </Card.Body>
