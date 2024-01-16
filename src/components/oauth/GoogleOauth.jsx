@@ -37,7 +37,7 @@ export default function GoogleOAuth() {
                 localStorage.setItem('token', user.access_token)
             }).catch((err) => console.log(err));
 
-            axios.post('http://localhost:5001/user/logUser', {}, {
+            axios.post(import.meta.env.VITE_BACKEND_URL+'/user/logUser', {}, {
                 headers: {
                     Authorization: `${user.access_token}`,
                     Accept: 'application/json'
