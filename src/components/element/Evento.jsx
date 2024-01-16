@@ -7,7 +7,6 @@ import routerService from "../../service/routerService.js";
 
 export function Evento({evento}) {
     const fecha = new Date(evento.timeStamp);
-    console.log(fecha)
 
     return (
         <>
