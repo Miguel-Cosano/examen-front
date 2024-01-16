@@ -140,12 +140,8 @@ const deleteEvento = async (idEvento) => {
                 'Access-Control-Allow-Origin': '*',
                 "authorization": localStorage.getItem("token")
             }
-        }).catch(
-            error => {
-                if(error.status === 401){
-                    alert("Token de sesion no valido");
-                    logOut();
-                } });;
+        });
+
         if(res.status === 200){
             alert("Evento eliminado correctamente")
             routerService.moveToMainPage();
@@ -153,7 +149,10 @@ const deleteEvento = async (idEvento) => {
             alert("Error al eliminar el evento")
         }
     }catch (error){
-        console.log(error);
+        if(error.response && error.response.status === 401){
+            alert("Token de sesión no válido");
+            logOut();
+        }
     }
 
 }

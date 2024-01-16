@@ -10,7 +10,7 @@ export function Evento({evento}) {
 
     return (
         <>
-            <Col md={3} align={"Center"}>
+            <Col md={3}  align={"Center"}>
                 <Card style={{
                     width: '18rem',
                     marginLeft: '1rem',

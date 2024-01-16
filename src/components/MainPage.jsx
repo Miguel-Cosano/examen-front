@@ -118,8 +118,7 @@ export function MainPage() {
                     <h1>No hay eventos disponibles</h1>
                 ) : (<h1>Eventos</h1>)}
             </Row>
-            <Row>
-
+            <Row className={"mt-5"}>
                 <Container fluid>
                     <Row>
                         {eventos.map((evento) => (

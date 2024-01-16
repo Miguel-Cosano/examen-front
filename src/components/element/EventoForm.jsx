@@ -24,7 +24,7 @@ export function EventoForm() {
 
 
     if(localStorage.getItem("email") === null || localStorage.getItem("email") === undefined){
-        alert("Tienes que iniciar sesión para poder crear un evento");
+        alert("Tienes que iniciar sesión para poder crear o modificar    un evento");
         routerService.moveToMainPage();
     }
 
