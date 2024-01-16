@@ -173,7 +173,6 @@ const getUserInfo = async (setUserInfo) => {
         }
     } catch (error) {
         if (error.response && error.response.status === 401) {
-            console.log("ENTRANDO EN ERROR");
             alert("Token de sesión no válido");
             logOut();
         } else {
@@ -186,15 +185,14 @@ const getUserInfo = async (setUserInfo) => {
 
 const logOut = async () => {
         const token = localStorage.getItem("token");
+        localStorage.clear();
+        routerService.moveToMainPage();
         let res = await axios.post(import.meta.env.VITE_BACKEND_URL+"/user/logOutUser",{}, {
             headers: {
                 'Access-Control-Allow-Origin': '*',
                 "authorization": localStorage.getItem("token")
             }
         });
-        localStorage.clear();
-        routerService.moveToMainPage();
-
 }
 
 const eventoService = {
