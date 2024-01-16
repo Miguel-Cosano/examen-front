@@ -159,23 +159,30 @@ const deleteEvento = async (idEvento) => {
 }
 
 const getUserInfo = async (setUserInfo) => {
-    try{
-        let res = await axios.get(import.meta.env.VITE_BACKEND_URL+"/user", {
+    try {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user`, {
             headers: {
-                'Access-Control-Allow-Origin': '*',
-                "authorization": localStorage.getItem("token")
+                'authorization': localStorage.getItem("token")
             }
-        }).catch(
-            error => {
-                if(error.status === 401){
-                    alert("Token de sesion no valido");
-                    logOut();
-                } });;
-        setUserInfo(res.data.user);
-    }catch (error){
-        console.log(error);
+        });
+
+        if (response.status === 200) {
+            setUserInfo(response.data.user);
+        } else {
+            console.error(`Unexpected status code: ${response.status}`);
+        }
+    } catch (error) {
+        if (error.response && error.response.status === 401) {
+            console.log("ENTRANDO EN ERROR");
+            alert("Token de sesión no válido");
+            logOut();
+        } else {
+            console.error("An unexpected error occurred:", error);
+            alert("Error al obtener la información del usuario");
+        }
     }
-}
+};
+
 
 const logOut = async () => {
         const token = localStorage.getItem("token");
