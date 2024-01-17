@@ -51,6 +51,9 @@ export function Gasto({gasto}) {
                             eMail: {gasto.eMail}
                         </Card.Text>
                         <Card.Text>
+                            Direccion: {gasto.direccionPostal ? gasto.direccionPostal : "No hay direccion"}
+                            </Card.Text>
+                        <Card.Text>
                             Fecha: {fecha.getDate() + "/" +fecha.getMonth() + 1 + "/" + fecha.getFullYear()}
                         </Card.Text>
                         <Card.Text>

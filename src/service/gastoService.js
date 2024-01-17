@@ -22,7 +22,7 @@ setDefaults({
 
 const getCoordenadas = async (direccion) => {
     let response = await fromAddress(direccion).catch(console.error);
-    return {"lat": response.results[0].geometry.location.lat, "lng": response.results[0].geometry.location.lng, "codPostal": response.results[0].address_components[6].long_name}
+    return {"lat": response.results[0].geometry.location.lat, "lng": response.results[0].geometry.location.lng, "direccionPostal": response.results[0].formatted_address}
 }
 const getGastos = async (setGastos,setLocations) => {
     let res = await axios.get(import.meta.env.VITE_BACKEND_URL+"/gasto", {
@@ -64,12 +64,12 @@ const addGasto = async (gasto) => {
 
         let lat = direccion.lat ? direccion.lat : undefined;
         let long = direccion.lng ? direccion.lng : undefined;
-        let codPostal = direccion.codPostal ? direccion.codPostal : undefined;
-
+        let direccionPostal = direccion.direccionPostal ? direccion.direccionPostal : undefined;
+        console.log(direccionPostal)
         if(lat !== undefined || long !== undefined && codPostal !== undefined){
             gasto.lat = lat;
             gasto.long = long;
-            gasto.codPostal = codPostal;
+            gasto.direccionPostal = direccionPostal;
         }
         gasto.eMail = localStorage.getItem("email");
         gasto.token = localStorage.getItem("token");
