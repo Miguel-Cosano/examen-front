@@ -4,7 +4,7 @@ import axios from 'axios'
 import { googleLogout, useGoogleLogin } from '@react-oauth/google'
 import routerService from "../../service/routerService";
 import Button from "react-bootstrap/Button";
-
+import gastoService from "../../service/gastoService";
 export default function GoogleOAuth() {
     const [user, setUser] = useState([]);
     const [profile, setProfile] = useState([]);
@@ -19,7 +19,7 @@ export default function GoogleOAuth() {
     const logOut = async () => {
         setProfile([]);
         setUser([]);
-        await eventoService.logOut()
+        await gastoService.logOut()
         
     };
 

@@ -38,7 +38,11 @@ export function MainPage() {
             <NavBar/>
 
             <Row>
-                <h1>Saldo: {saldo} </h1>
+                {localStorage.getItem("email") !== null ?
+                    ( <h1>Saldo: {saldo} </h1>)
+                    :
+                    (<> </>)}
+
             </Row>
 
             <Row>
