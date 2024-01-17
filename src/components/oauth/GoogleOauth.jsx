@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios'
 import { googleLogout, useGoogleLogin } from '@react-oauth/google'
 import routerService from "../../service/routerService";
-import eventoService from "../../service/eventoService.js";
 import Button from "react-bootstrap/Button";
 
 export default function GoogleOAuth() {
@@ -44,6 +43,7 @@ export default function GoogleOAuth() {
                 }
             }).then((res) => {
                 console.log(res)
+                window.location.reload();
             })
         }
     }, [user]);

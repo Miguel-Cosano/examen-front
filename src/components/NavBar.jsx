@@ -15,27 +15,11 @@ function BasicExample() {
                 <Navbar.Brand href="">Navbar</Navbar.Brand>
                 <Nav className="me-auto">
                     <Nav.Link href="" onClick={RouterService.moveToMainPage}>Home</Nav.Link>
-                    <Nav.Link href="" onClick={RouterService.moveToForm}>Crear Evento</Nav.Link>
-                    <Nav.Link href="" onClick={RouterService.moveToUserInfo}>Info Usuario</Nav.Link>
+                    <Nav.Link href="" onClick={RouterService.moveToForm}>Crear gasto</Nav.Link>
                 </Nav>
                 </Col>
                 <Col className={"d-flex"} xs={"auto"}>
-                    <Form className={"me-5"}>
-                        <Row>
-
-                            <Col xs="auto">
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Search"
-                                    className=" mr-sm-2"
-                                />
-                            </Col>
-                            <Col xs="auto">
-                                <Button type="submit">Buscar</Button>
-                            </Col>
-
-                        </Row>
-                    </Form>
+                    
                     <GoogleOAuth/>
                 </Col>
 

@@ -4,9 +4,16 @@ import {Col, Row} from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import imagen from "../../assets/image/no-image.png"
 import routerService from "../../service/routerService.js";
+import gastoService from "../../service/gastoService.js";
 
-export function Evento({evento}) {
-    const fecha = new Date(evento.timeStamp);
+export function Gasto({gasto}) {
+    const fecha = new Date(gasto.timeStamp);
+    
+    const eliminarGasto = async () => {
+        await gastoService.deleteGasto(gasto._id).then(() => {
+            alert("Gasto eliminado")
+        })
+    }
 
     return (
         <>
@@ -29,21 +36,33 @@ export function Evento({evento}) {
                                 objectFit: 'cover',
                             }}
                             variant={"top"}
-                            src={evento.imagen ? evento.imagen : imagen}
+                            src={gasto.imagen ? gasto.imagen : imagen}
                         />
                     </div>
                     <Card.Body>
-                        <Card.Title>{evento.nombre}</Card.Title>
+                        <Card.Title>GASTO</Card.Title>
                         <Card.Text>
-                            Organizador: {evento.organizador}
+                            Concepto: {gasto.concepto}
                         </Card.Text>
                         <Card.Text>
-                            Lugar: {evento.lugar}
+                            Importe: {gasto.importe}
+                        </Card.Text>
+                        <Card.Text>
+                            eMail: {gasto.eMail}
                         </Card.Text>
                         <Card.Text>
                             Fecha: {fecha.getDate() + "/" +fecha.getMonth() + 1 + "/" + fecha.getFullYear()}
                         </Card.Text>
-                        <Button className="mb-1" variant="primary" onClick={() => routerService.moveToInfoEvento(evento._id)}>Ver evento</Button>
+                        <Card.Text>
+                            token: {gasto.token}
+                            </Card.Text>
+                        {gasto.eMail === localStorage.getItem('email') ?
+                            (
+                                <Button className="mb-1" variant="danger" color={"red"} onClick={() => eliminarGasto()}>Eliminar</Button>
+                            ):(
+                                <></>
+                            )}
+
                     </Card.Body>
                 </Card>
             </Col>

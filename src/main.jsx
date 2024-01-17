@@ -3,15 +3,10 @@ import ReactDOM from 'react-dom/client'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {GoogleOAuthProvider} from "@react-oauth/google";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import {LoginPage} from "./components/LoginPage.jsx";
 import "./assets/css/Main.css"
 import {MainPage} from "./components/MainPage.jsx";
-import {EventoForm} from "./components/element/EventoForm.jsx";
 import NavBar from "./components/NavBar.jsx";
-import {EventoInfo} from "./components/element/EventoInfo.jsx";
-import {UserInfo} from "./components/oauth/UserInfo.jsx";
-
-
+import {GastoForm} from "./components/element/GastoForm.jsx";
 const   router = createBrowserRouter([
     {
         path: '/',
@@ -23,19 +18,7 @@ const   router = createBrowserRouter([
     },
     {
         path: '/form/',
-        element: <EventoForm />
-    },
-    {
-      path: '/updateEvento/:idEvento',
-      element: <EventoForm />
-    },
-    {
-        path: '/evento/:idEvento',
-        element: <EventoInfo />
-    },
-    {
-        path: '/infoUser',
-        element: <UserInfo />
+        element: <GastoForm />
     }
 
 ])
