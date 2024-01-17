@@ -21,14 +21,16 @@ export function MainPage() {
     },[])
 
     useEffect(() => {
-        if(localStorage.getItem("email") !== null || localStorage.getItem("email") !== undefined) {
+
             const fetchSaldo = async () => {
-                
-                let result = await gastoService.getSaldo(localStorage.getItem("email"));
-                setSaldo(result);
+                if(localStorage.getItem("email") !== null){
+                    let result = await gastoService.getSaldo(localStorage.getItem("email"));
+                    setSaldo(result);
+                }
+
             }
             fetchSaldo();
-        }
+
         
 
     },[gastos])
