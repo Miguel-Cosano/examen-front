@@ -61,13 +61,16 @@ const addGasto = async (gasto) => {
     try{
         let direccion = await gastoService.getCoordenadas(gasto.localizacion);
 
-        let lat = direccion.lat;
-        let long = direccion.lng;
-        let codPostal = direccion.codPostal;
-        
-        gasto.lat = lat;
-        gasto.long = long;
-        gasto.codPostal = codPostal;
+
+        let lat = direccion.lat ? direccion.lat : undefined;
+        let long = direccion.lng ? direccion.lng : undefined;
+        let codPostal = direccion.codPostal ? direccion.codPostal : undefined;
+
+        if(lat !== undefined || long !== undefined && codPostal !== undefined){
+            gasto.lat = lat;
+            gasto.long = long;
+            gasto.codPostal = codPostal;
+        }
         gasto.eMail = localStorage.getItem("email");
         gasto.token = localStorage.getItem("token");
         
