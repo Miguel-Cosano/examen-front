@@ -22,7 +22,7 @@ export function GastoForm() {
 
 
     if (localStorage.getItem("email") === null || localStorage.getItem("email") === undefined) {
-        alert("Tienes que iniciar sesión para poder crear o modificar un gasto");
+        alert("Tienes que iniciar sesión para poder crear un gasto");
         routerService.moveToMainPage();
     }
 
